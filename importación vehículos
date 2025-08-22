@@ -1,0 +1,54 @@
+# 📦 Registro de Importación de Vehículos
+
+## 📌 1. Análisis del Enunciado
+Una empresa de importación recibe cada mes una variedad de vehículos provenientes de diferentes países.  
+Los vehículos se agrupan en **lotes de importación** y son asignados a **concesionarios locales**.
+
+---
+
+## 📌 2. Entidades, Atributos, Dominios y Claves Primarias
+
+### 🚗 Entidad: Vehículo
+- **numero_serie** → PK, `VARCHAR(20)`
+- **modelo** → `VARCHAR(50)`
+- **marca** → `VARCHAR(50)`
+- **anio_fabricacion** → `INT` (1900 – año actual)
+- **velocidad_maxima** → `NUMERIC(5,2)` (km/h)
+- **precio_declarado** → `NUMERIC(12,2)`
+- **codigo_lote** → FK → `lote_importacion(codigo_lote)`
+- **codigo_concesionario** → FK → `concesionario(codigo_concesionario)`
+
+### 📦 Entidad: Lote de Importación
+- **codigo_lote** → PK, `VARCHAR(10)`
+- **fecha_llegada** → `DATE`
+- **pais_origen** → `VARCHAR(50)`
+
+### 🏢 Entidad: Concesionario
+- **codigo_concesionario** → PK, `VARCHAR(10)`
+- **nombre_comercial** → `VARCHAR(100)`
+- **direccion** → `VARCHAR(150)`
+- **persona_contacto** → `VARCHAR(100)`
+
+---
+
+## 📌 3. Modelo Relacional
+- **Vehículo** (*numero_serie*, modelo, marca, anio_fabricacion, velocidad_maxima, precio_declarado, codigo_lote [FK], codigo_concesionario [FK])  
+- **Lote de Importación** (*codigo_lote*, fecha_llegada, pais_origen)  
+- **Concesionario** (*codigo_concesionario*, nombre_comercial, direccion, persona_contacto)  
+
+**Relaciones:**  
+- Un **lote** puede contener varios **vehículos**.  
+- Un **concesionario** puede recibir varios **vehículos**.  
+
+---
+
+## 📌 4. Script SQL
+El archivo [`script.sql`](script.sql) contiene el código para crear la base de datos y las tablas en PostgreSQL.
+
+---
+
+## 📌 5. Instrucciones de Ejecución en PostgreSQL
+1. Abrir **DataGrip** o **psql**.  
+2. Crear la base de datos con:  
+   ```sql
+   CREATE DATABASE importacion_vehiculos;
